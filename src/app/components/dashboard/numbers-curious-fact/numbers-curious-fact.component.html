@@ -1,1 +1,18 @@
-<p>numbers-curious-fact works!</p>
+<div class="card h-100 p-3 border-light">
+    <div class="card-header-warning">
+        <h5 class="text-primary me-3 mb-0">Did you kNow?</h5>
+    </div>
+    <div class="card-body">
+        <form>
+            <mat-form-field >
+                <input matInput type="number" placeholder="Enter a number for known" [formControl]="selectedNumber">                              
+            </mat-form-field>
+        </form>
+        <div *ngIf="numberInfo===null; else temp_shownumberInfo" class="d-flex align-items-center justify-content-center h-100 w-100">
+            <mat-spinner [diameter]="30"></mat-spinner>
+        </div>
+        <ng-template #temp_shownumberInfo>
+            <p class="text-start"> {{numberInfo}} </p>
+        </ng-template>
+    </div>
+</div>

@@ -22,6 +22,7 @@ import { NavbarComponent } from 'app/components/navbar/navbar.component';
 import { CountryInformationComponent } from 'app/components/dashboard/country-information/country-information.component';
 import { ChuckNorrisInfoComponent } from 'app/components/dashboard/chuck-norris-info/chuck-norris-info.component';
 import { NumbersCuriousFactComponent } from 'app/components/dashboard/numbers-curious-fact/numbers-curious-fact.component';
+import { Covid19InformationComponent } from './components/dashboard/covid19-information/covid19-information.component';
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import { NumbersCuriousFactComponent } from 'app/components/dashboard/numbers-cu
     CountryInformationComponent,
     ChuckNorrisInfoComponent,
     NumbersCuriousFactComponent,
+    Covid19InformationComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse, HttpEvent } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CountryDetailed } from './modules/countryDetailed';
-import { CovidStatus } from './modules/covidStatus';
+import { CountryDetailed } from 'app/api/modules/countryDetailed';
+import { CovidStatus } from 'app/api/modules/covidStatus';
+import { Chucknorris } from 'app/api/modules/chucknorris';
+import { NumberInfo } from 'app/api/modules/numberInfo';
 
 @Injectable({providedIn: 'root'})
 export class ExternarlHTTPCallsService {
@@ -66,9 +68,31 @@ export class ExternarlHTTPCallsService {
     if (country) {
       queryParameters = queryParameters.set('country', <any>country);
     }
-    return this._httpClient.request<CovidStatus>('get',`/api/v1/stats`,{
+    return this._httpClient.request<CovidStatus>('get',`/api/v1/stats`, {
       params: queryParameters,
     });
+  }
+
+  /**
+   * Return an observable to a chucknorris random info
+   *
+   * @return {*}  {Observable<Chucknorris>}
+   * @memberof ExternarlHTTPCallsService
+   */
+  public getChucknorrisRandomInfo():Observable<Chucknorris>{
+    return this._httpClient.request<Chucknorris>('get',`https://api.chucknorris.io/jokes/random`); 
+  }
+
+  /**
+   * Request and return information about the number "number"
+   * 
+   * @param numberReq 
+   * @returns 
+   */
+  public getInfoAboutNumber(numberReq: number): Observable<any> {
+    return this._httpClient.get(`http://numbersapi.com/${encodeURIComponent(numberReq)}`, {
+      responseType: 'text',
+    }); 
   }
 
   /**
@@ -80,6 +104,7 @@ export class ExternarlHTTPCallsService {
   public getCountriesList(): Observable<CountryDetailed[]> {
     return this._httpClient.get<any>('assets/country-codes.json');
   }
+
 
   /**
    * Private methods ---------------------------------------------------------------------------------------------

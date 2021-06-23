@@ -1,0 +1,32 @@
+<div class="card h-100 w-100 px-2 py-3 border-light overflow-auto">
+    <div class="card-header-warning">
+        <h5 class="text-primary">Covid 19 Information </h5>
+    </div>
+    <div class="card-body">
+        <div *ngIf="covidStatus; else temp_loadingCovidData" class="table-responsive">
+            <table class="table table-responsive table-striped w-100 text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">Región</th>
+                        <th scope="col">Casos confirmados</th>
+                        <th scope="col">Recuperados</th>
+                        <th scope="col">Muertes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let covidStatusRegion of covidStatus.data.covid19Stats">
+                        <td>{{covidStatusRegion.province}}</td>
+                        <td>{{covidStatusRegion.confirmed}}</td>
+                        <td>{{covidStatusRegion.recovered}}</td>
+                        <td>{{covidStatusRegion.deaths}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <ng-template #temp_loadingCovidData>
+            <div class="d-flex align-items-center justify-content-center h-100 w-100">
+                <mat-spinner [diameter]="30"></mat-spinner>
+            </div>
+        </ng-template>
+    </div>
+</div>

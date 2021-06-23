@@ -1,1 +1,16 @@
-<p>chuck-norris-info works!</p>
+<div class="card h-100 p-3 border-light">
+    <div class="card-header-warning d-flex align-items-center">
+        <h5 class="text-primary me-3 mb-0">About Chucknorris</h5>
+        <img *ngIf="chucknorrisinfo" [src]="chucknorrisinfo.icon_url" width="30" height="30">
+    </div>
+    <div class="card-body">
+        <p *ngIf="chucknorrisinfo; else temp_loadingChucknorris" class="text-start">
+            {{chucknorrisinfo.value}}
+        </p>
+        <ng-template #temp_loadingChucknorris>
+            <div class="d-flex align-items-center justify-content-center h-100 w-100">
+                <mat-spinner [diameter]="30"></mat-spinner>
+            </div>
+        </ng-template>
+    </div>
+</div>
