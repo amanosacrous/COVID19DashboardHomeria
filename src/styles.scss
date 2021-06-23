@@ -1,1 +1,49 @@
 /* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~@angular/material/theming';
+@include mat-core();
+
+$primaryThemePalete:  (
+  50 : #ecf9ee,
+  100 : #d0f0d4,
+  200 : #b0e7b8,
+  300 : #90dd9b,
+  400 : #79d585,
+  500 : #61ce70,
+  600 : #59c968,
+  700 : #4fc25d,
+  800 : #45bc53,
+  900 : #33b041,
+  A100 : #f8fff9,
+  A200 : #c5ffcb,
+  A400 : #92ff9d,
+  A700 : #79ff86,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #000000,
+    700 : #000000,
+    800 : #000000,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+$theme-colors: (
+  "primary": #61ce70,
+);
+@import "node_modules/bootstrap/scss/bootstrap";
+
+  $primary: mat-palette($primaryThemePalete,500);
+  $accent: mat-palette($mat-orange,200);
+
+  $theme: mat-light-theme($primary, $accent);
+
+@include angular-material-theme($theme)

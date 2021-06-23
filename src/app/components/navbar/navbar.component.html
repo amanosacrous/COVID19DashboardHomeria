@@ -1,1 +1,17 @@
-<p>navbar works!</p>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div *ngIf="countriesList" class="d-flex flex-row align-items-center justify-content-center w-100">
+        <span class="material-icons text-primary"> language </span>
+        <div class="ms-3">
+            <form>
+                <mat-form-field>
+                    <input matInput [matAutocomplete]="countryAutocomplete" [formControl]="selectedCountry">
+                    <mat-autocomplete #countryAutocomplete="matAutocomplete">
+                        <mat-option class="ap_font_s12" *ngFor="let countryDetailed of countriesList | filterCountries: selectedCountry.value" [value]="countryDetailed['country-name']" (click)="changeSelectedCountry(countryDetailed)">
+                            <span> {{countryDetailed['country-name']}} </span>
+                        </mat-option>
+                    </mat-autocomplete>                               
+                </mat-form-field>
+            </form>
+        </div>
+    </div>
+</nav>
