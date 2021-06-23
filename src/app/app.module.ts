@@ -14,7 +14,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 
 // Pipes ----------------------------------------------------
-import { FilterCountriesPipe } from './pipes/filter-countries.pipe';
+import { FilterCountriesPipe } from 'app/pipes/filter-countries.pipe';
+import { FilterProvincesPipe } from 'app/pipes/filter-provinces.pipe';
 
 // Components ----------------------------------------------------
 import { DashboardComponent } from 'app/components/dashboard/dashboard.component';
@@ -22,7 +23,8 @@ import { NavbarComponent } from 'app/components/navbar/navbar.component';
 import { CountryInformationComponent } from 'app/components/dashboard/country-information/country-information.component';
 import { ChuckNorrisInfoComponent } from 'app/components/dashboard/chuck-norris-info/chuck-norris-info.component';
 import { NumbersCuriousFactComponent } from 'app/components/dashboard/numbers-curious-fact/numbers-curious-fact.component';
-import { Covid19InformationComponent } from './components/dashboard/covid19-information/covid19-information.component';
+import { Covid19InformationComponent } from 'app/components/dashboard/covid19-information/covid19-information.component';
+
 
 @NgModule({
   imports: [
@@ -48,6 +50,7 @@ import { Covid19InformationComponent } from './components/dashboard/covid19-info
     ChuckNorrisInfoComponent,
     NumbersCuriousFactComponent,
     Covid19InformationComponent,
+    FilterProvincesPipe,
   ],
   providers: [],
   bootstrap: [AppComponent]

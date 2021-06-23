@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { ExternarlHTTPCallsService } from 'app/api/externarl-httpcalls.service';
 import { CountryDetailed } from 'app/api/modules/countryDetailed';
 import { CovidStatus } from 'app/api/modules/covidStatus';
+import { ProvinceStatus } from 'app/api/modules/provinceStatus';
 import { Subscription } from 'rxjs';
 
 /**
@@ -16,6 +17,11 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./covid19-information.component.scss']
 })
 export class Covid19InformationComponent implements OnDestroy {
+
+  /** 
+   * Public variables
+   */
+  public v_s_provinceFilter: string;
 
   /**
    * Private variables ---------------------------------------------------------
@@ -69,6 +75,7 @@ export class Covid19InformationComponent implements OnDestroy {
   private async _getCovid19Stats(): Promise<void> {
     try {
       this._covidStatus = await this._externarlHTTPCallsService.getCovid19Stats(this._selectedCountry['country-name']).toPromise();
+      this._covidStatus.data.covid19Stats = this._covidStatus.data.covid19Stats.filter((provinceStatus: ProvinceStatus) => provinceStatus.province!=="Unknown")
     } catch (err) {
       console.log(err);
     }

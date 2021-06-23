@@ -44,6 +44,7 @@ export class NumbersCuriousFactComponent {
         (text: string) => {
           this.numberInfo = text;
         }, (err: any) => {
+          this.numberInfo = undefined;
           console.log(err);
         }
       );
