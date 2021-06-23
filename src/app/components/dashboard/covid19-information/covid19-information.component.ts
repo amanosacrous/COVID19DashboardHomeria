@@ -1,19 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ExternarlHTTPCallsService } from 'app/api/externarl-httpcalls.service';
 import { CountryDetailed } from 'app/api/modules/countryDetailed';
 import { CovidStatus } from 'app/api/modules/covidStatus';
+import { Subscription } from 'rxjs';
 
+/**
+ * Controller the covid 19 table information of the selected country 
+ *
+ * @export
+ * @class Covid19InformationComponent
+ */
 @Component({
   selector: 'app-covid19-information',
   templateUrl: './covid19-information.component.html',
   styleUrls: ['./covid19-information.component.scss']
 })
-export class Covid19InformationComponent {
+export class Covid19InformationComponent implements OnDestroy {
 
   /**
    * Private variables ---------------------------------------------------------
    */
   private _selectedCountry: CountryDetailed;
+  private _selectedCountrySubscription: Subscription;
+  
   private _covidStatus: CovidStatus;
 
  
@@ -24,23 +33,29 @@ export class Covid19InformationComponent {
   public set covidStatus(value: CovidStatus) { this._covidStatus = value; }
  
  
-    /**
-    * Constructors ------------------------------------------------------------
-    */
-    constructor(private _externarlHTTPCallsService: ExternarlHTTPCallsService) {
-      this._externarlHTTPCallsService.getSelectedCountry().subscribe(
-        (countryDetailed: CountryDetailed) => {
-          this._selectedCountry = countryDetailed;
-          this._covidStatus = null;
-          if(this._selectedCountry){
-            this._getCovid19Stats();
-          }
-        }, (err: any ) => {
-          console.log(err);
+  /**
+  * Constructors ------------------------------------------------------------
+  */
+  constructor(private _externarlHTTPCallsService: ExternarlHTTPCallsService) {
+    this._selectedCountrySubscription = this._externarlHTTPCallsService.getSelectedCountry().subscribe(
+      (countryDetailed: CountryDetailed) => {
+        this._selectedCountry = countryDetailed;
+        this._covidStatus = null;
+        if(this._selectedCountry){
+          this._getCovid19Stats();
         }
-      )
-    }
+      }, (err: any ) => {
+        console.log(err);
+      }
+    )
+  }
  
+  ngOnDestroy() {
+    if (this._selectedCountrySubscription) {
+      this._selectedCountrySubscription.unsubscribe();
+    }
+  }
+
   /**
   * Private methods --------------------------------------------------------
   */

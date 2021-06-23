@@ -1,8 +1,8 @@
-<div class="card h-100 w-100 px-2 py-3 border-light overflow-auto">
-    <div class="card-header-warning">
+<div class="card h-100 w-100 px-2 py-3 border-light">
+    <div class="card-header-warning" style="min-height:6%">
         <h5 class="text-primary">Covid 19 Information </h5>
     </div>
-    <div class="card-body">
+    <div class="card-body overflow-auto" style="min-height:94%">
         <div *ngIf="covidStatus; else temp_loadingCovidData" class="table-responsive">
             <table class="table table-responsive table-striped w-100 text-center">
                 <thead>
@@ -15,7 +15,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let covidStatusRegion of covidStatus.data.covid19Stats">
-                        <td>{{covidStatusRegion.province}}</td>
+                        <td>{{covidStatusRegion.province ? covidStatusRegion.province : '-'}}</td>
                         <td>{{covidStatusRegion.confirmed}}</td>
                         <td>{{covidStatusRegion.recovered}}</td>
                         <td>{{covidStatusRegion.deaths}}</td>

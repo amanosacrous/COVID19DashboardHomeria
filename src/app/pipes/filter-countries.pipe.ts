@@ -1,6 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { CountryDetailed } from 'app/api/modules/countryDetailed';
 
+/**
+ * Filter "CountryDetailed" list for the country navbar selector
+ *
+ * @export
+ * @class FilterCountriesPipe
+ * @implements {PipeTransform}
+ */
 @Pipe({
   name: 'filterCountries'
 })

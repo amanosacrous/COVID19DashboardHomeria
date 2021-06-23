@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse, HttpEvent } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CountryDetailed } from 'app/api/modules/countryDetailed';
 import { CovidStatus } from 'app/api/modules/covidStatus';
 import { Chucknorris } from 'app/api/modules/chucknorris';
-import { NumberInfo } from 'app/api/modules/numberInfo';
 
+
+/**
+ * Service for manage all external http calls and the selected country
+ *
+ * @export
+ * @class ExternarlHTTPCallsService
+ */
 @Injectable({providedIn: 'root'})
 export class ExternarlHTTPCallsService {
 
@@ -18,11 +24,7 @@ export class ExternarlHTTPCallsService {
   /**
    * Constructors ----------------------------------------------------------------------------------------------
    */
-  constructor(private _httpClient: HttpClient) {
-    this._httpClient.get("http://api.ipify.org/?format=json").subscribe((res:any)=>{
-      this._ipAdress.next(res.ip);
-    });
-  }
+  constructor(private _httpClient: HttpClient) {}
 
   /**
    * Public methods ---------------------------------------------------------------------------------------------
@@ -48,12 +50,17 @@ export class ExternarlHTTPCallsService {
     return this._selCountryDetailed.asObservable();
   }
 
+  /**
+   * Return the county who owns the IP with the user use for request this web
+   *
+   * @return {*}  {Promise<Observable<any>>}
+   * @memberof ExternarlHTTPCallsService
+   */
   public async getVountriInfoFromUserIp(): Promise<Observable<any>>{
     const res = await this._httpClient.get("http://api.ipify.org/?format=json").toPromise().catch((err: any) => console.log(err));
     if(res){
       return this._httpClient.request<any>('get',`https://freegeoip.app/json/${encodeURIComponent(res['ip'])}`); 
     }
-
   }
 
   /**
@@ -110,13 +117,4 @@ export class ExternarlHTTPCallsService {
    * Private methods ---------------------------------------------------------------------------------------------
    */
 
-  /**
-   * Return an Observable to the user ipAdress
-   *
-   * @return {*}  {Observable<string>}
-   * @memberof ExternarlHTTPCallsService
-   */
-  private _getUserObservable(): Observable<string> {
-    return this._ipAdress.asObservable();
-  }
 }

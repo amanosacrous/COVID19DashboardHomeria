@@ -38,12 +38,14 @@ $primaryThemePalete:  (
 
 $theme-colors: (
   "primary": #61ce70,
+  "light": #f8f9fa,
 );
+
 @import "node_modules/bootstrap/scss/bootstrap";
 
-  $primary: mat-palette($primaryThemePalete,500);
-  $accent: mat-palette($mat-orange,200);
+$primary: mat-palette($primaryThemePalete,500);
+$accent: mat-palette($mat-orange,200);
 
-  $theme: mat-light-theme($primary, $accent);
+$theme: mat-light-theme($primary, $accent);
 
 @include angular-material-theme($theme)

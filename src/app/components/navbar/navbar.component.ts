@@ -3,6 +3,13 @@ import { CountryDetailed } from 'app/api/modules/countryDetailed';
 import { ExternarlHTTPCallsService } from 'app/api/externarl-httpcalls.service';
 import { FormControl, Validators } from '@angular/forms';
 
+/**
+ * Navigator with the country selector, and also request the user IP for initialize the selected country by IP
+ *
+ * @export
+ * @class NavbarComponent
+ * @implements {OnInit}
+ */
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
