@@ -1,0 +1,64 @@
+<div class="row m-0 h-50">
+    <div class="col-lg-3 p-0 h-100">
+        <div class="card h-100 p-3 border-light overflow-auto">
+            <div class="card-header-warning">
+                <h5 class="text-primary">Country details</h5>
+            </div>
+            <div class="card-body">
+                <table *ngIf="selectedCountry; else temp_loadingCountry" class="table table-borderless">
+                    <tbody>
+                        <tr>
+                            <td class="fw-bold">Capital:</td>
+                            <td>{{selectedCountry.capital}}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold">Moneda:</td>
+                            <td>{{selectedCountry.currency}}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold">Lenguaje:</td>
+                            <td>{{selectedCountry.languages}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ng-template #temp_loadingCountry>
+                    <div class="d-flex align-items-center justify-content-center h-100 w-100">
+                        <mat-spinner [diameter]="30"></mat-spinner>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9 h-100 p-0">
+        <div class="card h-100 w-100 p-3 border-light overflow-auto">
+            <div class="card-header-warning">
+                <h5 class="text-primary">Covid 19 Information </h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped w-100 text-center" *ngIf="covidStatus; else temp_loadingCovidData">
+                    <thead>
+                        <tr>
+                            <th scope="col">Región</th>
+                            <th scope="col">Casos confirmados</th>
+                            <th scope="col">Recuperados</th>
+                            <th scope="col">Muertes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let covidStatusRegion of covidStatus.data.covid19Stats">
+                            <td>{{covidStatusRegion.province}}</td>
+                            <td>{{covidStatusRegion.confirmed}}</td>
+                            <td>{{covidStatusRegion.recovered}}</td>
+                            <td>{{covidStatusRegion.deaths}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ng-template #temp_loadingCovidData>
+                    <div class="d-flex align-items-center justify-content-center h-100 w-100">
+                        <mat-spinner [diameter]="30"></mat-spinner>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

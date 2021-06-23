@@ -1,0 +1,8 @@
+{
+    "/api/v1/*": {
+      "target": "https://covid19-api.weedmark.systems",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel":"debug"
+    }
+  }

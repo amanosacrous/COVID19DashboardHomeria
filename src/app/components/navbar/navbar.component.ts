@@ -56,11 +56,15 @@ export class NavbarComponent implements OnInit {
     const resp = await this._externarlHTTPCallsService.getCountriesList().toPromise().catch(err => console.log(err));
     if(resp) {
       this._countriesList = resp;
-      let userIpCountry: CountryDetailed = resp[0];
-      const retCoutry = (await this._externarlHTTPCallsService.getFromNameFromIp()).toPromise().catch(err => console.log(err));
+      let userIpCountry: CountryDetailed;
+      const retCoutry = await (await this._externarlHTTPCallsService.getVountriInfoFromUserIp()).toPromise().catch(err => console.log(err));
       if(retCoutry){
-        this._countriesList.find((country: CountryDetailed) => );
+        userIpCountry = this._countriesList.find((country: CountryDetailed) => country.iso2 === retCoutry.country_code);
+        if(!userIpCountry){
+          userIpCountry=resp[0];
+        }
       }
+      this.changeSelectedCountry(userIpCountry);
       this.selectedCountry.patchValue(userIpCountry['country-name']);
     }
 

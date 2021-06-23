@@ -11,7 +11,7 @@ export class ExternarlHTTPCallsService {
    * Private variables -----------------------------------------------------------------------------------------
    */
   private _ipAdress: BehaviorSubject<string> = new BehaviorSubject<string>(null);
-  private _countryDetailed: BehaviorSubject<CountryDetailed> = new BehaviorSubject<CountryDetailed>(null);
+  private _selCountryDetailed: BehaviorSubject<CountryDetailed> = new BehaviorSubject<CountryDetailed>(null);
 
   /**
    * Constructors ----------------------------------------------------------------------------------------------
@@ -33,7 +33,7 @@ export class ExternarlHTTPCallsService {
    * @memberof ExternarlHTTPCallsService
    */
   public setSelectedCountry(countryDetailed: CountryDetailed) {
-    this._countryDetailed.next(countryDetailed);
+    this._selCountryDetailed.next(countryDetailed);
   }
 
   /**
@@ -43,10 +43,10 @@ export class ExternarlHTTPCallsService {
    * @memberof ExternarlHTTPCallsService
    */
   public getSelectedCountry(): Observable<CountryDetailed> {
-    return this._countryDetailed.asObservable();
+    return this._selCountryDetailed.asObservable();
   }
 
-  public async getFromNameFromIp(): Promise<Observable<any>>{
+  public async getVountriInfoFromUserIp(): Promise<Observable<any>>{
     const res = await this._httpClient.get("http://api.ipify.org/?format=json").toPromise().catch((err: any) => console.log(err));
     if(res){
       return this._httpClient.request<any>('get',`https://freegeoip.app/json/${encodeURIComponent(res['ip'])}`); 
@@ -62,10 +62,13 @@ export class ExternarlHTTPCallsService {
    * @memberof ExternarlHTTPCallsService
    */
   public getCovid19Stats(country: string): Observable<CovidStatus> {
-    if (country === null || country === undefined) {
-      throw new Error('Required parameter id was null or undefined when calling getAffectation.');
+    let queryParameters = new HttpParams();
+    if (country) {
+      queryParameters = queryParameters.set('country', <any>country);
     }
-    return this._httpClient.request<CovidStatus>('get',`https://covid19-api.weedmark.systems/api/v1/stats/${encodeURIComponent(country)}`);
+    return this._httpClient.request<CovidStatus>('get',`/api/v1/stats`,{
+      params: queryParameters,
+    });
   }
 
   /**
