@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { CountryDetailed } from 'app/api/modules/countryDetailed';
 import { CovidStatus } from 'app/api/modules/covidStatus';
 import { Chucknorris } from 'app/api/modules/chucknorris';
-
+import { environment } from 'app/../environments/environment';
 
 /**
  * Service for manage all external http calls and the selected country
@@ -75,8 +75,17 @@ export class ExternarlHTTPCallsService {
     if (country) {
       queryParameters = queryParameters.set('country', <any>country);
     }
-    return this._httpClient.request<CovidStatus>('get',`https://covid19-api.weedmark.systems/api/v1/stats`, {
-      headers: new HttpHeaders({'Content-Type':  'application/json'}),
+    let reqUrl: string = "/api/v1/stats";
+    if(environment.production) {
+      reqUrl = "https://covid19-api.weedmark.systems/api/v1/stats"
+    }
+    return this._httpClient.request<CovidStatus>('get',reqUrl, {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        "Access-Control-Allow-Headers": "Content-Type",
+        'Access-Control-Allow-Methods': 'GET',
+        "Access-Control-Allow-Origin": "*",
+      }),
       params: queryParameters,
     });
   }
