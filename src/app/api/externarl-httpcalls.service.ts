@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CountryDetailed } from 'app/api/modules/countryDetailed';
 import { CovidStatus } from 'app/api/modules/covidStatus';
@@ -57,7 +57,7 @@ export class ExternarlHTTPCallsService {
    * @memberof ExternarlHTTPCallsService
    */
   public async getVountriInfoFromUserIp(): Promise<Observable<any>>{
-    const res = await this._httpClient.get("http://api.ipify.org/?format=json").toPromise().catch((err: any) => console.log(err));
+    const res = await this._httpClient.get("https://api.ipify.org/?format=json").toPromise().catch((err: any) => console.log(err));
     if(res){
       return this._httpClient.request<any>('get',`https://freegeoip.app/json/${encodeURIComponent(res['ip'])}`); 
     }
@@ -76,6 +76,7 @@ export class ExternarlHTTPCallsService {
       queryParameters = queryParameters.set('country', <any>country);
     }
     return this._httpClient.request<CovidStatus>('get',`/api/v1/stats`, {
+      headers: new HttpHeaders({'Content-Type':  'application/json'}),
       params: queryParameters,
     });
   }
