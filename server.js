@@ -1,14 +1,16 @@
 //Install express server
 const express = require('express');
-const path = require('path');
+const createProxyMiddleware = require('http-proxy-middleware');
 
 const app = express();
+
+app.use('/api/v1/*', createProxyMiddleware({ target: 'https://covid19-api.weedmark.systems', changeOrigin: true }));
 
 // Add headers
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'https://covid19-api.weedmark.systems/api/v1/');
+    res.setHeader('Access-Control-Allow-Origin', '*');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
