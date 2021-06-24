@@ -75,7 +75,7 @@ export class ExternarlHTTPCallsService {
     if (country) {
       queryParameters = queryParameters.set('country', <any>country);
     }
-    return this._httpClient.request<CovidStatus>('get',`/api/v1/stats`, {
+    return this._httpClient.request<CovidStatus>('get',`https://covid19-api.weedmark.systems/api/v1/stats`, {
       headers: new HttpHeaders({'Content-Type':  'application/json'}),
       params: queryParameters,
     });
