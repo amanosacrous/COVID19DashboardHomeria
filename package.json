@@ -3,14 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "compodoc": "npx compodoc -p tsconfig.json",
     "heroku-postbuild": "ng build --prod",
-    "postinstall": "ng build --prod"
   },
   "private": true,
   "dependencies": {
@@ -25,8 +24,10 @@
     "@angular/platform-browser-dynamic": "~9.1.13",
     "@angular/router": "~9.1.13",
     "bootstrap": "5.0.0",
+    "express": "^4.17.1",
     "jquery": "^3.6.0",
     "material-icons": "^0.7.3",
+    "path": "^0.12.7",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
